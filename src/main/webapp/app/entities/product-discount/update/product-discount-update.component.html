@@ -1,0 +1,122 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-product-discount-heading" data-cy="ProductDiscountCreateUpdateHeading">Create or edit a Product Discount</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_addedDate">Added Date</label>
+          <div class="d-flex">
+            <input
+              id="field_addedDate"
+              data-cy="addedDate"
+              type="datetime-local"
+              class="form-control"
+              name="addedDate"
+              formControlName="addedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('addedDate')!.invalid && (editForm.get('addedDate')!.dirty || editForm.get('addedDate')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('addedDate')?.errors?.required"> Bu alan gerekli. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('addedDate')?.errors?.datetimelocal">
+              Bu alan tarih veya zaman içermeli.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_dueDate">Due Date</label>
+          <div class="d-flex">
+            <input
+              id="field_dueDate"
+              data-cy="dueDate"
+              type="datetime-local"
+              class="form-control"
+              name="dueDate"
+              formControlName="dueDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('dueDate')!.invalid && (editForm.get('dueDate')!.dirty || editForm.get('dueDate')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('dueDate')?.errors?.required"> Bu alan gerekli. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('dueDate')?.errors?.datetimelocal">
+              Bu alan tarih veya zaman içermeli.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_discount">Discount</label>
+          <select
+            class="form-control"
+            id="field_discount"
+            data-cy="discount"
+            name="discount"
+            formControlName="discount"
+            [compareWith]="compareDiscount"
+          >
+            <option *ngIf="!editForm.get('discount')!.value" [ngValue]="null" selected></option>
+            <option [ngValue]="discountOption" *ngFor="let discountOption of discountsSharedCollection">{{ discountOption.id }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['discount'])!.invalid && (editForm.get(['discount'])!.dirty || editForm.get(['discount'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['discount'])?.errors?.required"> Bu alan gerekli. </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_product">Product</label>
+          <select
+            class="form-control"
+            id="field_product"
+            data-cy="product"
+            name="product"
+            formControlName="product"
+            [compareWith]="compareProduct"
+          >
+            <option *ngIf="editForm.get(['product'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="productOption" *ngFor="let productOption of productsSharedCollection">{{ productOption.id }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['product'])!.invalid && (editForm.get(['product'])!.dirty || editForm.get(['product'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['product'])?.errors?.required"> Bu alan gerekli. </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>İptal</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Kaydet</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

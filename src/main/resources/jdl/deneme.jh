@@ -1,0 +1,239 @@
+
+
+entity Seller {
+	name String required minlength(3),
+    lastName String required minlength(3),
+    shopName String required minlength(3),
+    mail String required,
+    activated Boolean,
+    image ImageBlob,
+    tckn String required minlength(11),
+    phone String required,
+    city String required,
+    placedDate Instant,
+}
+
+entity ProductModel {
+	modelCode String,
+}
+
+
+entity Product {
+	barcode String required,
+    modelCode String required,
+	name String required minlength(5),
+    price BigDecimal required min(0),
+    discountPrice BigDecimal,
+    description TextBlob,
+    image ImageBlob required,
+    addedDate Instant required,
+    rating Float,
+    sizee String,
+    stock Integer required min(0),
+    active Boolean
+}
+
+entity Property {
+	name String required,
+}
+
+entity PropertyDes {
+	detail String required,
+}
+
+entity ProductImage {
+	image1 ImageBlob required,
+    image2 ImageBlob,
+    image3 ImageBlob,
+    image4 ImageBlob,
+    image5 ImageBlob,
+    image6 ImageBlob,
+}
+
+entity Color {
+	name String required,
+    code String
+}
+
+entity ProductInventory {
+	total Integer required min(0)
+}
+
+entity Brand {
+	name String required minlength(3),
+    logo ImageBlob required
+}
+
+entity Category {
+	name String required,
+    image ImageBlob required,
+}
+
+entity SubCategory {
+	name String required,
+    image ImageBlob required,
+}
+
+entity ProductType {
+	name String required,
+}
+
+entity Discount {
+	title String required,
+    image ImageBlob,
+    description String,
+}
+
+entity ProductDiscount {
+	addedDate Instant required,
+    dueDate Instant required,
+    description String,
+}
+
+
+entity Order {
+	placedDate Instant required
+	totalQuantity Integer required,
+    totalPrice BigDecimal required,
+    status OrderStatus,
+}
+
+enum OrderStatus {
+    COMPLETED, PENDING, CANCELLED
+}
+
+entity OrderItem {
+	quantity Integer required,
+    totalPrice BigDecimal required,
+    status OrderItemStatus
+
+}
+
+enum OrderItemStatus {
+    PENDING, PREPARING, CARGO , COMPLETED , CANCELLED
+}
+
+entity Payment {
+	placedDate Instant
+    quantity BigDecimal
+}
+
+
+entity UserAdress {
+	name String required,
+    lastName String required,
+	telephone String required,
+    city String required,
+    adress TextBlob,
+    adressTitle String required,
+}
+
+
+entity UserCart {
+	cartName String required,
+	cartNumber String required,
+    name String required,
+    lastName String required,
+    sktAy String required,
+    sktYil String required,
+}
+
+entity Favorite {
+
+}
+
+entity Comment {
+	description TextBlob required,
+    image ImageBlob,
+    rating Rating ,
+}
+enum Rating {
+	ONESTAR,
+    TWOSTAR,
+    THREESTAR,
+    FOURSTAR,
+    FIVESTAR
+}
+
+@readOnly
+entity ProductStatistics {
+	order Integer,
+    click Integer,
+    comment Integer,
+    rating Float,
+    addCart Integer,
+}
+
+@readOnly
+entity SellerStatistics {
+	product Integer,
+    totalOrder Integer,
+    totalEarning BigDecimal,
+}
+
+
+relationship ManyToOne {
+    PropertyDes{property required} to Property,
+    OrderItem{product required} to Product,
+    Favorite{product required} to Product,
+    Product{category required} to Category,
+    Product to SubCategory
+    ProductDiscount{discount required} to Discount,
+    Order{adress} to UserAdress,
+    Property{category} to Category
+    Seller{sellerProductType} to ProductType,
+    Product to Color
+}
+
+relationship ManyToOne {
+	Comment{user(login)} to User,
+    Order{user(login)} to User,
+    UserAdress{user(login)} to User
+    UserCart{user(login)} to User,
+    Favorite{user} to User,
+    Payment{user(login)} to User,
+}
+
+relationship ManyToOne {
+	Payment{usercart} to UserCart,
+}
+
+relationship OneToOne {
+	ProductImage{product required} to Product
+}
+relationship OneToMany {
+    Product to ProductDiscount{product required},
+    Product{propertyDetails} to PropertyDes{product required},
+    Product to ProductInventory{product},
+    Product to Comment{product required},
+    ProductModel to Product{ProductModel}
+}
+
+relationship OneToMany {
+	Seller{products} to Product{seller}
+    Brand to Product{brand}
+}
+
+relationship OneToMany {
+	Order to OrderItem{order required},
+    ProductType to Category{type required},
+    Category to SubCategory{category required}
+}
+
+relationship OneToOne {
+	Payment to Order,
+    Seller{user} to User,
+    Brand to Seller,
+}
+
+relationship OneToOne {
+	ProductStatistics to Product,
+    SellerStatistics to Seller
+}
+
+
+paginate * with pagination
+service all with serviceImpl
+search * with elasticsearch except ProductStatistics, OrderItem, Order, Comment, Color, Payment , ProductInventory , ProductImage , UserCart, ProductModel , UserAdress
+filter * except OrderItem, ProductImage , Payment , Order , Color , UserCart , ProductStatistics
+dto all with mapstruct except ProductStatistics

@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="productStatistics">
+      <h2 data-cy="productStatisticsDetailsHeading"><span>Product Statistics</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ productStatistics.id }}</span>
+        </dd>
+        <dt><span>Order</span></dt>
+        <dd>
+          <span>{{ productStatistics.order }}</span>
+        </dd>
+        <dt><span>Click</span></dt>
+        <dd>
+          <span>{{ productStatistics.click }}</span>
+        </dd>
+        <dt><span>Comment</span></dt>
+        <dd>
+          <span>{{ productStatistics.comment }}</span>
+        </dd>
+        <dt><span>Rating</span></dt>
+        <dd>
+          <span>{{ productStatistics.rating }}</span>
+        </dd>
+        <dt><span>Add Cart</span></dt>
+        <dd>
+          <span>{{ productStatistics.addCart }}</span>
+        </dd>
+        <dt><span>Product</span></dt>
+        <dd>
+          <div *ngIf="productStatistics.product">
+            <a [routerLink]="['/product', productStatistics.product.id, 'view']">{{ productStatistics.product.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Geri</span>
+      </button>
+    </div>
+  </div>
+</div>

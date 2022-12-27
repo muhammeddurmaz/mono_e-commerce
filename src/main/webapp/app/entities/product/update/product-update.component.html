@@ -1,0 +1,255 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-product-heading" data-cy="ProductCreateUpdateHeading">Create or edit a Product</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_barcode">Barcode</label>
+          <input type="text" class="form-control" name="barcode" id="field_barcode" data-cy="barcode" formControlName="barcode" />
+          <div *ngIf="editForm.get('barcode')!.invalid && (editForm.get('barcode')!.dirty || editForm.get('barcode')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('barcode')?.errors?.required"> Bu alan gerekli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_modelCode">Model Code</label>
+          <input type="text" class="form-control" name="modelCode" id="field_modelCode" data-cy="modelCode" formControlName="modelCode" />
+          <div *ngIf="editForm.get('modelCode')!.invalid && (editForm.get('modelCode')!.dirty || editForm.get('modelCode')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('modelCode')?.errors?.required"> Bu alan gerekli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required"> Bu alan gerekli. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.minlength">
+              Bu alan en az 5 karakterden oluşabilir.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_price">Price</label>
+          <input type="number" class="form-control" name="price" id="field_price" data-cy="price" formControlName="price" />
+          <div *ngIf="editForm.get('price')!.invalid && (editForm.get('price')!.dirty || editForm.get('price')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('price')?.errors?.required"> Bu alan gerekli. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('price')?.errors?.min"> Bu alan en az 0 olmalı. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('price')?.errors?.number"> Bu alan numara içermeli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_discountPrice">Discount Price</label>
+          <input
+            type="number"
+            class="form-control"
+            name="discountPrice"
+            id="field_discountPrice"
+            data-cy="discountPrice"
+            formControlName="discountPrice"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_description">Description</label>
+          <textarea
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          ></textarea>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_image">Image</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('imageContentType')!.value + ';base64,' + editForm.get('image')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image')!.value"
+              alt="product image"
+            />
+            <div *ngIf="editForm.get('image')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('imageContentType')!.value }}, {{ byteSize(editForm.get('image')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image', 'imageContentType', 'file_image')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_image" data-cy="image" (change)="setFileData($event, 'image', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="image" id="field_image" data-cy="image" formControlName="image" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="imageContentType"
+            id="field_imageContentType"
+            formControlName="imageContentType"
+          />
+          <div *ngIf="editForm.get('image')!.invalid && (editForm.get('image')!.dirty || editForm.get('image')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('image')?.errors?.required"> Bu alan gerekli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_addedDate">Added Date</label>
+          <div class="d-flex">
+            <input
+              id="field_addedDate"
+              data-cy="addedDate"
+              type="datetime-local"
+              class="form-control"
+              name="addedDate"
+              formControlName="addedDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('addedDate')!.invalid && (editForm.get('addedDate')!.dirty || editForm.get('addedDate')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('addedDate')?.errors?.required"> Bu alan gerekli. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('addedDate')?.errors?.datetimelocal">
+              Bu alan tarih veya zaman içermeli.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_rating">Rating</label>
+          <input type="number" class="form-control" name="rating" id="field_rating" data-cy="rating" formControlName="rating" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_sizee">Sizee</label>
+          <input type="text" class="form-control" name="sizee" id="field_sizee" data-cy="sizee" formControlName="sizee" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_stock">Stock</label>
+          <input type="number" class="form-control" name="stock" id="field_stock" data-cy="stock" formControlName="stock" />
+          <div *ngIf="editForm.get('stock')!.invalid && (editForm.get('stock')!.dirty || editForm.get('stock')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('stock')?.errors?.required"> Bu alan gerekli. </small>
+            <small class="form-text text-danger" *ngIf="editForm.get('stock')?.errors?.min"> Bu alan en az 0 olmalı. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('stock')?.errors?.number"> Bu alan numara içermeli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_active">Active</label>
+          <input type="checkbox" class="form-check" name="active" id="field_active" data-cy="active" formControlName="active" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_category">Category</label>
+          <select
+            class="form-control"
+            id="field_category"
+            data-cy="category"
+            name="category"
+            formControlName="category"
+            [compareWith]="compareCategory"
+          >
+            <option *ngIf="!editForm.get('category')!.value" [ngValue]="null" selected></option>
+            <option [ngValue]="categoryOption" *ngFor="let categoryOption of categoriesSharedCollection">{{ categoryOption.id }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['category'])!.invalid && (editForm.get(['category'])!.dirty || editForm.get(['category'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['category'])?.errors?.required"> Bu alan gerekli. </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_subCategory">Sub Category</label>
+          <select
+            class="form-control"
+            id="field_subCategory"
+            data-cy="subCategory"
+            name="subCategory"
+            formControlName="subCategory"
+            [compareWith]="compareSubCategory"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="subCategoryOption" *ngFor="let subCategoryOption of subCategoriesSharedCollection">
+              {{ subCategoryOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_color">Color</label>
+          <select class="form-control" id="field_color" data-cy="color" name="color" formControlName="color" [compareWith]="compareColor">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="colorOption" *ngFor="let colorOption of colorsSharedCollection">{{ colorOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_productModel">Product Model</label>
+          <select
+            class="form-control"
+            id="field_productModel"
+            data-cy="productModel"
+            name="productModel"
+            formControlName="productModel"
+            [compareWith]="compareProductModel"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="productModelOption" *ngFor="let productModelOption of productModelsSharedCollection">
+              {{ productModelOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_seller">Seller</label>
+          <select
+            class="form-control"
+            id="field_seller"
+            data-cy="seller"
+            name="seller"
+            formControlName="seller"
+            [compareWith]="compareSeller"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="sellerOption" *ngFor="let sellerOption of sellersSharedCollection">{{ sellerOption.id }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_brand">Brand</label>
+          <select class="form-control" id="field_brand" data-cy="brand" name="brand" formControlName="brand" [compareWith]="compareBrand">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="brandOption" *ngFor="let brandOption of brandsSharedCollection">{{ brandOption.id }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>İptal</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Kaydet</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

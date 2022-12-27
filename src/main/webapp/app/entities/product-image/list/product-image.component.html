@@ -1,0 +1,206 @@
+<div>
+  <h2 id="page-heading" data-cy="ProductImageHeading">
+    <span>Product Images</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-product-image"
+        [routerLink]="['/product-image/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Product Image </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="productImages?.length === 0">
+    <span>No Product Images found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="productImages && productImages.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="image1">
+            <div class="d-flex">
+              <span>Image 1</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="image2">
+            <div class="d-flex">
+              <span>Image 2</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="image3">
+            <div class="d-flex">
+              <span>Image 3</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="image4">
+            <div class="d-flex">
+              <span>Image 4</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="image5">
+            <div class="d-flex">
+              <span>Image 5</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="image6">
+            <div class="d-flex">
+              <span>Image 6</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="product.id">
+            <div class="d-flex">
+              <span>Product</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let productImage of productImages; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/product-image', productImage.id, 'view']">{{ productImage.id }}</a>
+          </td>
+          <td>
+            <a *ngIf="productImage.image1" (click)="openFile(productImage.image1, productImage.image1ContentType)">
+              <img
+                [src]="'data:' + productImage.image1ContentType + ';base64,' + productImage.image1"
+                style="max-height: 30px"
+                alt="productImage image"
+              />
+            </a>
+            <span *ngIf="productImage.image1">{{ productImage.image1ContentType }}, {{ byteSize(productImage.image1) }}</span>
+          </td>
+          <td>
+            <a *ngIf="productImage.image2" (click)="openFile(productImage.image2, productImage.image2ContentType)">
+              <img
+                [src]="'data:' + productImage.image2ContentType + ';base64,' + productImage.image2"
+                style="max-height: 30px"
+                alt="productImage image"
+              />
+            </a>
+            <span *ngIf="productImage.image2">{{ productImage.image2ContentType }}, {{ byteSize(productImage.image2) }}</span>
+          </td>
+          <td>
+            <a *ngIf="productImage.image3" (click)="openFile(productImage.image3, productImage.image3ContentType)">
+              <img
+                [src]="'data:' + productImage.image3ContentType + ';base64,' + productImage.image3"
+                style="max-height: 30px"
+                alt="productImage image"
+              />
+            </a>
+            <span *ngIf="productImage.image3">{{ productImage.image3ContentType }}, {{ byteSize(productImage.image3) }}</span>
+          </td>
+          <td>
+            <a *ngIf="productImage.image4" (click)="openFile(productImage.image4, productImage.image4ContentType)">
+              <img
+                [src]="'data:' + productImage.image4ContentType + ';base64,' + productImage.image4"
+                style="max-height: 30px"
+                alt="productImage image"
+              />
+            </a>
+            <span *ngIf="productImage.image4">{{ productImage.image4ContentType }}, {{ byteSize(productImage.image4) }}</span>
+          </td>
+          <td>
+            <a *ngIf="productImage.image5" (click)="openFile(productImage.image5, productImage.image5ContentType)">
+              <img
+                [src]="'data:' + productImage.image5ContentType + ';base64,' + productImage.image5"
+                style="max-height: 30px"
+                alt="productImage image"
+              />
+            </a>
+            <span *ngIf="productImage.image5">{{ productImage.image5ContentType }}, {{ byteSize(productImage.image5) }}</span>
+          </td>
+          <td>
+            <a *ngIf="productImage.image6" (click)="openFile(productImage.image6, productImage.image6ContentType)">
+              <img
+                [src]="'data:' + productImage.image6ContentType + ';base64,' + productImage.image6"
+                style="max-height: 30px"
+                alt="productImage image"
+              />
+            </a>
+            <span *ngIf="productImage.image6">{{ productImage.image6ContentType }}, {{ byteSize(productImage.image6) }}</span>
+          </td>
+          <td>
+            <div *ngIf="productImage.product">
+              <a [routerLink]="['/product', productImage.product.id, 'view']">{{ productImage.product.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/product-image', productImage.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">Görüntüle</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/product-image', productImage.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Düzenle</span>
+              </button>
+
+              <button type="submit" (click)="delete(productImage)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Sil</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="productImages && productImages.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

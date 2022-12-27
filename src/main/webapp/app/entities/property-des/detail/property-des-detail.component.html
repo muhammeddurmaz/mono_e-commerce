@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="propertyDes">
+      <h2 data-cy="propertyDesDetailsHeading"><span>Entity translation missing for fastShopApp.propertyDes.detail.title</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ propertyDes.id }}</span>
+        </dd>
+        <dt><span>Detail</span></dt>
+        <dd>
+          <span>{{ propertyDes.detail }}</span>
+        </dd>
+        <dt><span>Property</span></dt>
+        <dd>
+          <div *ngIf="propertyDes.property">
+            <a [routerLink]="['/property', propertyDes.property.id, 'view']">{{ propertyDes.property.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Product</span></dt>
+        <dd>
+          <div *ngIf="propertyDes.product">
+            <a [routerLink]="['/product', propertyDes.product.id, 'view']">{{ propertyDes.product.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Geri</span>
+      </button>
+
+      <button type="button" [routerLink]="['/property-des', propertyDes.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Düzenle</span>
+      </button>
+    </div>
+  </div>
+</div>

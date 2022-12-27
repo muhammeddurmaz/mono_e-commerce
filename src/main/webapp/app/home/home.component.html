@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-3">
+    <span class="hipster img-fluid rounded"></span>
+  </div>
+
+  <div class="col-md-9">
+    <h1 class="display-4"><span>Merhaba, Java Hipster!</span> (Fast Shop)</h1>
+
+    <p class="lead">Burası Ana Sayfanız</p>
+
+    <div [ngSwitch]="account !== null">
+      <div class="alert alert-success" *ngSwitchCase="true">
+        <span id="home-logged-message" *ngIf="account">"{{ account.login }}" olarak giriş yaptınız.</span>
+      </div>
+
+      <div class="alert alert-warning" *ngSwitchCase="false">
+        <span></span>
+        <a class="alert-link" (click)="login()">Giriş</a
+        ><span>
+          yapmak istiyorsanız, varsayılan hesaplardan birini deneyebilirsiniz:<br />- Yönetici (kullanıcı adı="admin" ve şifre="admin")
+          <br />- Kullanıcı (kullanıcı adı="user" and şifre="user").</span
+        >
+      </div>
+
+      <div class="alert alert-warning" *ngSwitchCase="false">
+        <span>Henüz bir hesabınız yok mu?</span>&nbsp;
+        <a class="alert-link" routerLink="account/register">Yeni hesap oluştur</a>
+      </div>
+    </div>
+
+    <p>JHipster hakkında sorularınız için:</p>
+
+    <ul>
+      <li><a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">JHipster ana sayfa</a></li>
+      <li>
+        <a href="https://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">Stack Overflow'da JHipster</a>
+      </li>
+      <li>
+        <a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer"
+          >JHipster hata yönetimi</a
+        >
+      </li>
+      <li>
+        <a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">JHipster genel sohbet odası</a>
+      </li>
+      <li>
+        <a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">Twitter'da @jhipster adresinden ulaşabilirsiniz</a>
+      </li>
+    </ul>
+
+    <p>
+      <span>JHipster'ı beğendiysenizi yıldız vermeyi unutmayın</span>
+      <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">GitHub</a>!
+    </p>
+  </div>
+</div>

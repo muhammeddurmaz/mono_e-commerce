@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="productInventory">
+      <h2 data-cy="productInventoryDetailsHeading"><span>Product Inventory</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ productInventory.id }}</span>
+        </dd>
+        <dt><span>Total</span></dt>
+        <dd>
+          <span>{{ productInventory.total }}</span>
+        </dd>
+        <dt><span>Product</span></dt>
+        <dd>
+          <div *ngIf="productInventory.product">
+            <a [routerLink]="['/product', productInventory.product.id, 'view']">{{ productInventory.product.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Geri</span>
+      </button>
+
+      <button type="button" [routerLink]="['/product-inventory', productInventory.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Düzenle</span>
+      </button>
+    </div>
+  </div>
+</div>

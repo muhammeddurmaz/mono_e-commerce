@@ -1,0 +1,117 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="product">
+      <h2 data-cy="productDetailsHeading"><span>Product</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ product.id }}</span>
+        </dd>
+        <dt><span>Barcode</span></dt>
+        <dd>
+          <span>{{ product.barcode }}</span>
+        </dd>
+        <dt><span>Model Code</span></dt>
+        <dd>
+          <span>{{ product.modelCode }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ product.name }}</span>
+        </dd>
+        <dt><span>Price</span></dt>
+        <dd>
+          <span>{{ product.price }}</span>
+        </dd>
+        <dt><span>Discount Price</span></dt>
+        <dd>
+          <span>{{ product.discountPrice }}</span>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+          <span>{{ product.description }}</span>
+        </dd>
+        <dt><span>Image</span></dt>
+        <dd>
+          <div *ngIf="product.image">
+            <a (click)="openFile(product.image, product.imageContentType)">
+              <img [src]="'data:' + product.imageContentType + ';base64,' + product.image" style="max-width: 100%" alt="product image" />
+            </a>
+            {{ product.imageContentType }}, {{ byteSize(product.image) }}
+          </div>
+        </dd>
+        <dt><span>Added Date</span></dt>
+        <dd>
+          <span>{{ product.addedDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Rating</span></dt>
+        <dd>
+          <span>{{ product.rating }}</span>
+        </dd>
+        <dt><span>Sizee</span></dt>
+        <dd>
+          <span>{{ product.sizee }}</span>
+        </dd>
+        <dt><span>Stock</span></dt>
+        <dd>
+          <span>{{ product.stock }}</span>
+        </dd>
+        <dt><span>Active</span></dt>
+        <dd>
+          <span>{{ product.active }}</span>
+        </dd>
+        <dt><span>Category</span></dt>
+        <dd>
+          <div *ngIf="product.category">
+            <a [routerLink]="['/category', product.category.id, 'view']">{{ product.category.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Sub Category</span></dt>
+        <dd>
+          <div *ngIf="product.subCategory">
+            <a [routerLink]="['/sub-category', product.subCategory.id, 'view']">{{ product.subCategory.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Color</span></dt>
+        <dd>
+          <div *ngIf="product.color">
+            <a [routerLink]="['/color', product.color.id, 'view']">{{ product.color.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Product Model</span></dt>
+        <dd>
+          <div *ngIf="product.productModel">
+            <a [routerLink]="['/product-model', product.productModel.id, 'view']">{{ product.productModel.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Seller</span></dt>
+        <dd>
+          <div *ngIf="product.seller">
+            <a [routerLink]="['/seller', product.seller.id, 'view']">{{ product.seller.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Brand</span></dt>
+        <dd>
+          <div *ngIf="product.brand">
+            <a [routerLink]="['/brand', product.brand.id, 'view']">{{ product.brand.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Geri</span>
+      </button>
+
+      <button type="button" [routerLink]="['/product', product.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Düzenle</span>
+      </button>
+    </div>
+  </div>
+</div>

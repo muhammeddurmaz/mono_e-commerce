@@ -1,0 +1,22 @@
+<form *ngIf="color" name="deleteForm" (ngSubmit)="confirmDelete(color.id!)">
+  <div class="modal-header">
+    <h4 class="modal-title" data-cy="colorDeleteDialogHeading">Silme işlemini onayla</h4>
+
+    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true" (click)="cancel()">&times;</button>
+  </div>
+
+  <div class="modal-body">
+    <jhi-alert-error></jhi-alert-error>
+    <p id="jhi-delete-color-heading">Are you sure you want to delete Color {{ color.id }}?</p>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancel()">
+      <fa-icon icon="ban"></fa-icon>&nbsp;<span>İptal</span>
+    </button>
+
+    <button id="jhi-confirm-delete-color" data-cy="entityConfirmDeleteButton" type="submit" class="btn btn-danger">
+      <fa-icon icon="times"></fa-icon>&nbsp;<span>Sil</span>
+    </button>
+  </div>
+</form>

@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20221226200813",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "product_model",
+  "fields": [
+    {
+      "fieldName": "modelCode",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "ProductModel",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "productModel",
+      "relationshipName": "product",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

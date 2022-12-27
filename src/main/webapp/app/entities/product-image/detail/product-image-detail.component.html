@@ -1,0 +1,112 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="productImage">
+      <h2 data-cy="productImageDetailsHeading"><span>Product Image</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ productImage.id }}</span>
+        </dd>
+        <dt><span>Image 1</span></dt>
+        <dd>
+          <div *ngIf="productImage.image1">
+            <a (click)="openFile(productImage.image1, productImage.image1ContentType)">
+              <img
+                [src]="'data:' + productImage.image1ContentType + ';base64,' + productImage.image1"
+                style="max-width: 100%"
+                alt="productImage image"
+              />
+            </a>
+            {{ productImage.image1ContentType }}, {{ byteSize(productImage.image1) }}
+          </div>
+        </dd>
+        <dt><span>Image 2</span></dt>
+        <dd>
+          <div *ngIf="productImage.image2">
+            <a (click)="openFile(productImage.image2, productImage.image2ContentType)">
+              <img
+                [src]="'data:' + productImage.image2ContentType + ';base64,' + productImage.image2"
+                style="max-width: 100%"
+                alt="productImage image"
+              />
+            </a>
+            {{ productImage.image2ContentType }}, {{ byteSize(productImage.image2) }}
+          </div>
+        </dd>
+        <dt><span>Image 3</span></dt>
+        <dd>
+          <div *ngIf="productImage.image3">
+            <a (click)="openFile(productImage.image3, productImage.image3ContentType)">
+              <img
+                [src]="'data:' + productImage.image3ContentType + ';base64,' + productImage.image3"
+                style="max-width: 100%"
+                alt="productImage image"
+              />
+            </a>
+            {{ productImage.image3ContentType }}, {{ byteSize(productImage.image3) }}
+          </div>
+        </dd>
+        <dt><span>Image 4</span></dt>
+        <dd>
+          <div *ngIf="productImage.image4">
+            <a (click)="openFile(productImage.image4, productImage.image4ContentType)">
+              <img
+                [src]="'data:' + productImage.image4ContentType + ';base64,' + productImage.image4"
+                style="max-width: 100%"
+                alt="productImage image"
+              />
+            </a>
+            {{ productImage.image4ContentType }}, {{ byteSize(productImage.image4) }}
+          </div>
+        </dd>
+        <dt><span>Image 5</span></dt>
+        <dd>
+          <div *ngIf="productImage.image5">
+            <a (click)="openFile(productImage.image5, productImage.image5ContentType)">
+              <img
+                [src]="'data:' + productImage.image5ContentType + ';base64,' + productImage.image5"
+                style="max-width: 100%"
+                alt="productImage image"
+              />
+            </a>
+            {{ productImage.image5ContentType }}, {{ byteSize(productImage.image5) }}
+          </div>
+        </dd>
+        <dt><span>Image 6</span></dt>
+        <dd>
+          <div *ngIf="productImage.image6">
+            <a (click)="openFile(productImage.image6, productImage.image6ContentType)">
+              <img
+                [src]="'data:' + productImage.image6ContentType + ';base64,' + productImage.image6"
+                style="max-width: 100%"
+                alt="productImage image"
+              />
+            </a>
+            {{ productImage.image6ContentType }}, {{ byteSize(productImage.image6) }}
+          </div>
+        </dd>
+        <dt><span>Product</span></dt>
+        <dd>
+          <div *ngIf="productImage.product">
+            <a [routerLink]="['/product', productImage.product.id, 'view']">{{ productImage.product.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Geri</span>
+      </button>
+
+      <button type="button" [routerLink]="['/product-image', productImage.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Düzenle</span>
+      </button>
+    </div>
+  </div>
+</div>

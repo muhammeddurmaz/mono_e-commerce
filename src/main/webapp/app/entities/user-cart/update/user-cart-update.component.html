@@ -1,0 +1,95 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-user-cart-heading" data-cy="UserCartCreateUpdateHeading">Create or edit a User Cart</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_cartName">Cart Name</label>
+          <input type="text" class="form-control" name="cartName" id="field_cartName" data-cy="cartName" formControlName="cartName" />
+          <div *ngIf="editForm.get('cartName')!.invalid && (editForm.get('cartName')!.dirty || editForm.get('cartName')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('cartName')?.errors?.required"> Bu alan gerekli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_cartNumber">Cart Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="cartNumber"
+            id="field_cartNumber"
+            data-cy="cartNumber"
+            formControlName="cartNumber"
+          />
+          <div *ngIf="editForm.get('cartNumber')!.invalid && (editForm.get('cartNumber')!.dirty || editForm.get('cartNumber')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('cartNumber')?.errors?.required"> Bu alan gerekli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required"> Bu alan gerekli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="field_lastName" data-cy="lastName" formControlName="lastName" />
+          <div *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('lastName')?.errors?.required"> Bu alan gerekli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_sktAy">Skt Ay</label>
+          <input type="text" class="form-control" name="sktAy" id="field_sktAy" data-cy="sktAy" formControlName="sktAy" />
+          <div *ngIf="editForm.get('sktAy')!.invalid && (editForm.get('sktAy')!.dirty || editForm.get('sktAy')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('sktAy')?.errors?.required"> Bu alan gerekli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_sktYil">Skt Yil</label>
+          <input type="text" class="form-control" name="sktYil" id="field_sktYil" data-cy="sktYil" formControlName="sktYil" />
+          <div *ngIf="editForm.get('sktYil')!.invalid && (editForm.get('sktYil')!.dirty || editForm.get('sktYil')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('sktYil')?.errors?.required"> Bu alan gerekli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.login }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>İptal</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Kaydet</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

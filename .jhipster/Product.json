@@ -1,0 +1,145 @@
+{
+  "applications": "*",
+  "changelogDate": "20221226200814",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "product",
+  "fields": [
+    {
+      "fieldName": "barcode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "modelCode",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "minlength"],
+      "fieldValidateRulesMinlength": "5"
+    },
+    {
+      "fieldName": "price",
+      "fieldType": "BigDecimal",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "discountPrice",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "image",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "addedDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "rating",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "sizee",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "stock",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "Product",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "productDiscount",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "productDiscount",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "propertyDes",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "propertyDetails",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "productInventory",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "productInventory",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "comment",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "comment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "category",
+      "relationshipName": "category",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "subCategory",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "subCategory",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "color",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "color",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "productStatistics",
+      "otherEntityRelationshipName": "product",
+      "ownerSide": false,
+      "relationshipName": "productStatistics",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "productModel",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "productModel",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "seller",
+      "otherEntityRelationshipName": "products",
+      "relationshipName": "seller",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "brand",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "brand",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "elasticsearch",
+  "service": "serviceImpl"
+}

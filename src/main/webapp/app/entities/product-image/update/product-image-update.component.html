@@ -1,0 +1,239 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-product-image-heading" data-cy="ProductImageCreateUpdateHeading">Create or edit a Product Image</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_image1">Image 1</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('image1ContentType')!.value + ';base64,' + editForm.get('image1')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image1')!.value"
+              alt="productImage image"
+            />
+            <div *ngIf="editForm.get('image1')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('image1ContentType')!.value }}, {{ byteSize(editForm.get('image1')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image1', 'image1ContentType', 'file_image1')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_image1" data-cy="image1" (change)="setFileData($event, 'image1', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="image1" id="field_image1" data-cy="image1" formControlName="image1" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="image1ContentType"
+            id="field_image1ContentType"
+            formControlName="image1ContentType"
+          />
+          <div *ngIf="editForm.get('image1')!.invalid && (editForm.get('image1')!.dirty || editForm.get('image1')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('image1')?.errors?.required"> Bu alan gerekli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_image2">Image 2</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('image2ContentType')!.value + ';base64,' + editForm.get('image2')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image2')!.value"
+              alt="productImage image"
+            />
+            <div *ngIf="editForm.get('image2')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('image2ContentType')!.value }}, {{ byteSize(editForm.get('image2')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image2', 'image2ContentType', 'file_image2')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_image2" data-cy="image2" (change)="setFileData($event, 'image2', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="image2" id="field_image2" data-cy="image2" formControlName="image2" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="image2ContentType"
+            id="field_image2ContentType"
+            formControlName="image2ContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_image3">Image 3</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('image3ContentType')!.value + ';base64,' + editForm.get('image3')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image3')!.value"
+              alt="productImage image"
+            />
+            <div *ngIf="editForm.get('image3')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('image3ContentType')!.value }}, {{ byteSize(editForm.get('image3')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image3', 'image3ContentType', 'file_image3')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_image3" data-cy="image3" (change)="setFileData($event, 'image3', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="image3" id="field_image3" data-cy="image3" formControlName="image3" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="image3ContentType"
+            id="field_image3ContentType"
+            formControlName="image3ContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_image4">Image 4</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('image4ContentType')!.value + ';base64,' + editForm.get('image4')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image4')!.value"
+              alt="productImage image"
+            />
+            <div *ngIf="editForm.get('image4')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('image4ContentType')!.value }}, {{ byteSize(editForm.get('image4')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image4', 'image4ContentType', 'file_image4')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_image4" data-cy="image4" (change)="setFileData($event, 'image4', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="image4" id="field_image4" data-cy="image4" formControlName="image4" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="image4ContentType"
+            id="field_image4ContentType"
+            formControlName="image4ContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_image5">Image 5</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('image5ContentType')!.value + ';base64,' + editForm.get('image5')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image5')!.value"
+              alt="productImage image"
+            />
+            <div *ngIf="editForm.get('image5')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('image5ContentType')!.value }}, {{ byteSize(editForm.get('image5')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image5', 'image5ContentType', 'file_image5')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_image5" data-cy="image5" (change)="setFileData($event, 'image5', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="image5" id="field_image5" data-cy="image5" formControlName="image5" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="image5ContentType"
+            id="field_image5ContentType"
+            formControlName="image5ContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_image6">Image 6</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('image6ContentType')!.value + ';base64,' + editForm.get('image6')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('image6')!.value"
+              alt="productImage image"
+            />
+            <div *ngIf="editForm.get('image6')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('image6ContentType')!.value }}, {{ byteSize(editForm.get('image6')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('image6', 'image6ContentType', 'file_image6')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_image6" data-cy="image6" (change)="setFileData($event, 'image6', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="image6" id="field_image6" data-cy="image6" formControlName="image6" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="image6ContentType"
+            id="field_image6ContentType"
+            formControlName="image6ContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_product">Product</label>
+          <select
+            class="form-control"
+            id="field_product"
+            data-cy="product"
+            name="product"
+            formControlName="product"
+            [compareWith]="compareProduct"
+          >
+            <option *ngIf="!editForm.get('product')!.value" [ngValue]="null" selected></option>
+            <option [ngValue]="productOption" *ngFor="let productOption of productsSharedCollection">{{ productOption.id }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['product'])!.invalid && (editForm.get(['product'])!.dirty || editForm.get(['product'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['product'])?.errors?.required"> Bu alan gerekli. </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>İptal</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Kaydet</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="brand">
+      <h2 data-cy="brandDetailsHeading"><span>Brand</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ brand.id }}</span>
+        </dd>
+        <dt><span>Name</span></dt>
+        <dd>
+          <span>{{ brand.name }}</span>
+        </dd>
+        <dt><span>Logo</span></dt>
+        <dd>
+          <div *ngIf="brand.logo">
+            <a (click)="openFile(brand.logo, brand.logoContentType)">
+              <img [src]="'data:' + brand.logoContentType + ';base64,' + brand.logo" style="max-width: 100%" alt="brand image" />
+            </a>
+            {{ brand.logoContentType }}, {{ byteSize(brand.logo) }}
+          </div>
+        </dd>
+        <dt><span>Seller</span></dt>
+        <dd>
+          <div *ngIf="brand.seller">
+            <a [routerLink]="['/seller', brand.seller.id, 'view']">{{ brand.seller.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Geri</span>
+      </button>
+
+      <button type="button" [routerLink]="['/brand', brand.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Düzenle</span>
+      </button>
+    </div>
+  </div>
+</div>

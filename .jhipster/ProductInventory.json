@@ -1,0 +1,30 @@
+{
+  "applications": "*",
+  "changelogDate": "20221226200819",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "product_inventory",
+  "fields": [
+    {
+      "fieldName": "total",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "name": "ProductInventory",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "productInventory",
+      "relationshipName": "product",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": false,
+  "service": "serviceImpl"
+}

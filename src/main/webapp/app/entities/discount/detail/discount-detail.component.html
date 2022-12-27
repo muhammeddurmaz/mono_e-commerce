@@ -1,0 +1,45 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="discount">
+      <h2 data-cy="discountDetailsHeading"><span>Discount</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ discount.id }}</span>
+        </dd>
+        <dt><span>Title</span></dt>
+        <dd>
+          <span>{{ discount.title }}</span>
+        </dd>
+        <dt><span>Image</span></dt>
+        <dd>
+          <div *ngIf="discount.image">
+            <a (click)="openFile(discount.image, discount.imageContentType)">
+              <img [src]="'data:' + discount.imageContentType + ';base64,' + discount.image" style="max-width: 100%" alt="discount image" />
+            </a>
+            {{ discount.imageContentType }}, {{ byteSize(discount.image) }}
+          </div>
+        </dd>
+        <dt><span>Description</span></dt>
+        <dd>
+          <span>{{ discount.description }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Geri</span>
+      </button>
+
+      <button type="button" [routerLink]="['/discount', discount.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Düzenle</span>
+      </button>
+    </div>
+  </div>
+</div>

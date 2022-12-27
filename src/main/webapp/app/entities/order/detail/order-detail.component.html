@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="order">
+      <h2 data-cy="orderDetailsHeading"><span>Order</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ order.id }}</span>
+        </dd>
+        <dt><span>Placed Date</span></dt>
+        <dd>
+          <span>{{ order.placedDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Total Quantity</span></dt>
+        <dd>
+          <span>{{ order.totalQuantity }}</span>
+        </dd>
+        <dt><span>Total Price</span></dt>
+        <dd>
+          <span>{{ order.totalPrice }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ order.status }}</span>
+        </dd>
+        <dt><span>Adress</span></dt>
+        <dd>
+          <div *ngIf="order.adress">
+            <a [routerLink]="['/user-adress', order.adress.id, 'view']">{{ order.adress.id }}</a>
+          </div>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+          <span>{{ order.user?.login }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Geri</span>
+      </button>
+
+      <button type="button" [routerLink]="['/order', order.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Düzenle</span>
+      </button>
+    </div>
+  </div>
+</div>

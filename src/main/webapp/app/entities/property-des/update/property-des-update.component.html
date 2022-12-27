@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-property-des-heading" data-cy="PropertyDesCreateUpdateHeading">Create or edit a Property Des</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_detail">Detail</label>
+          <input type="text" class="form-control" name="detail" id="field_detail" data-cy="detail" formControlName="detail" />
+          <div *ngIf="editForm.get('detail')!.invalid && (editForm.get('detail')!.dirty || editForm.get('detail')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('detail')?.errors?.required"> Bu alan gerekli. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_property">Property</label>
+          <select
+            class="form-control"
+            id="field_property"
+            data-cy="property"
+            name="property"
+            formControlName="property"
+            [compareWith]="compareProperty"
+          >
+            <option *ngIf="!editForm.get('property')!.value" [ngValue]="null" selected></option>
+            <option [ngValue]="propertyOption" *ngFor="let propertyOption of propertiesSharedCollection">{{ propertyOption.id }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['property'])!.invalid && (editForm.get(['property'])!.dirty || editForm.get(['property'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['property'])?.errors?.required"> Bu alan gerekli. </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_product">Product</label>
+          <select
+            class="form-control"
+            id="field_product"
+            data-cy="product"
+            name="product"
+            formControlName="product"
+            [compareWith]="compareProduct"
+          >
+            <option *ngIf="editForm.get(['product'])!.value == null" [ngValue]="null" selected></option>
+            <option [ngValue]="productOption" *ngFor="let productOption of productsSharedCollection">{{ productOption.id }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['product'])!.invalid && (editForm.get(['product'])!.dirty || editForm.get(['product'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['product'])?.errors?.required"> Bu alan gerekli. </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>İptal</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Kaydet</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

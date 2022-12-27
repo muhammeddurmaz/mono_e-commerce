@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="sellerStatistics">
+      <h2 data-cy="sellerStatisticsDetailsHeading"><span>Seller Statistics</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ sellerStatistics.id }}</span>
+        </dd>
+        <dt><span>Product</span></dt>
+        <dd>
+          <span>{{ sellerStatistics.product }}</span>
+        </dd>
+        <dt><span>Total Order</span></dt>
+        <dd>
+          <span>{{ sellerStatistics.totalOrder }}</span>
+        </dd>
+        <dt><span>Total Earning</span></dt>
+        <dd>
+          <span>{{ sellerStatistics.totalEarning }}</span>
+        </dd>
+        <dt><span>Seller</span></dt>
+        <dd>
+          <div *ngIf="sellerStatistics.seller">
+            <a [routerLink]="['/seller', sellerStatistics.seller.id, 'view']">{{ sellerStatistics.seller.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Geri</span>
+      </button>
+    </div>
+  </div>
+</div>

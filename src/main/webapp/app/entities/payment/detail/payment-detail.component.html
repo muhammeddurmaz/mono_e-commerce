@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="payment">
+      <h2 data-cy="paymentDetailsHeading"><span>Payment</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ payment.id }}</span>
+        </dd>
+        <dt><span>Placed Date</span></dt>
+        <dd>
+          <span>{{ payment.placedDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Quantity</span></dt>
+        <dd>
+          <span>{{ payment.quantity }}</span>
+        </dd>
+        <dt><span>Order</span></dt>
+        <dd>
+          <div *ngIf="payment.order">
+            <a [routerLink]="['/order', payment.order.id, 'view']">{{ payment.order.id }}</a>
+          </div>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+          <span>{{ payment.user?.login }}</span>
+        </dd>
+        <dt><span>Usercart</span></dt>
+        <dd>
+          <div *ngIf="payment.usercart">
+            <a [routerLink]="['/user-cart', payment.usercart.id, 'view']">{{ payment.usercart.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Geri</span>
+      </button>
+
+      <button type="button" [routerLink]="['/payment', payment.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Düzenle</span>
+      </button>
+    </div>
+  </div>
+</div>
